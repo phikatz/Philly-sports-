@@ -258,7 +258,7 @@ function renderAll(teamData) {
                 </div>
                 <div class="location-badge ${g.location}">${g.location}</div>
             </div>
-        `).join('') : '<div class="no-games">No games next 14 days</div>';
+        `).join('') : '<div class="no-games">No games next 7 days</div>';
 
         return `
             <div class="team-section">
