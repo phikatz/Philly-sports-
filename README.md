@@ -176,11 +176,11 @@
 
 <script>
 const PHILLY_TEAMS = [
-  { name: 'Eagles',  sprt: 'football', slug: 'nfl', id: '21', league: 'NFL', color: '#004C54' },
   { name: 'Sixers',  sprt: 'basketball',slug: 'nba', id: '20', league: 'NBA', color: '#006BB6' },
   { name: 'Phillies', sprt: 'baseball', slug: 'mlb', id: '22', league: 'MLB', color: '#E81828' },
   { name: 'Flyers',  sprt: 'hockey', slug: 'nhl', id: '15', league: 'NHL', color: '#F74902' },
-  { name: 'Union',   sprt: 'soccer', slug: 'usa.1', id: '11091', league: 'MLS', color: '#071B2C' }
+  { name: 'Union',   sprt: 'soccer', slug: 'usa.1', id: '11091', league: 'MLS', color: '#071B2C' },
+  { name: 'Eagles',  sprt: 'football', slug: 'nfl', id: '21', league: 'NFL', color: '#004C54' }
 ];
 
 async function fetchSchedules() {
@@ -199,14 +199,14 @@ async function fetchSchedules() {
                 const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${team.sprt}/${team.slug}/teams/${team.id}/schedule`);
                 const data = await res.json();
                 
-                // Get games occurring from now until 14 days out
+                // Get games occurring from now until 7 days out
                 const now = new Date();
                 const twoWeeks = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000));
 
                 teamData[team.name] = (data.events || [])
                     .filter(e => {
                         const gameDate = new Date(e.date);
-                        return gameDate >= now && gameDate <= twoWeeks;
+                        return gameDate >= now && gameDate <= oneWeek;
                     })
                     .map(e => {
                         const game = e.competitions[0];
