@@ -1,5 +1,5 @@
 # Philly-sports-
-<!DOCTYPE html>
+<Schedule for the Next Week>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -201,7 +201,7 @@ async function fetchSchedules() {
                 
                 // Get games occurring from now until 14 days out
                 const now = new Date();
-                const twoWeeks = new Date(now.getTime() + (14 * 24 * 60 * 60 * 1000));
+                const twoWeeks = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000));
 
                 teamData[team.name] = (data.events || [])
                     .filter(e => {
