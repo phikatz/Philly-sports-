@@ -180,7 +180,7 @@ const PHILLY_TEAMS = [
   { name: 'Sixers',  sprt: 'basketball',slug: 'nba', id: '20', league: 'NBA', color: '#006BB6' },
   { name: 'Phillies', sprt: 'baseball', slug: 'mlb', id: '22', league: 'MLB', color: '#E81828' },
   { name: 'Flyers',  sprt: 'hockey', slug: 'nhl', id: '15', league: 'NHL', color: '#F74902' },
-  { name: 'Union',   sprt: 'soccer', slug: 'soccer/usa.1', id: '11091', league: 'MLS', color: '#071B2C' }
+  { name: 'Union',   sprt: 'soccer', slug: 'usa.1', id: '11091', league: 'MLS', color: '#071B2C' }
 ];
 
 async function fetchSchedules() {
