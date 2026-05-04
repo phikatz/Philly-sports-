@@ -178,7 +178,7 @@
 const PHILLY_TEAMS = [
   { name: 'Eagles',  slug: 'nfl', id: '21', league: 'NFL', color: '#004C54' },
   { name: 'Sixers',  slug: 'nba', id: '20', league: 'NBA', color: '#006BB6' },
-  { name: 'Phillies', slug: 'mlb', id: '22', league: 'MLB', color: '#E81828' },
+  { name: 'Phillies', sprt: 'baseball', slug: 'mlb', id: '22', league: 'MLB', color: '#E81828' },
   { name: 'Flyers',  slug: 'nhl', id: '15', league: 'NHL', color: '#F74902' },
   { name: 'Union',   slug: 'soccer/usa.1', id: '11091', league: 'MLS', color: '#071B2C' }
 ];
@@ -196,7 +196,7 @@ async function fetchSchedules() {
 
         for (const team of PHILLY_TEAMS) {
             try {
-                const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${team.slug}/teams/${team.id}/schedule`);
+                const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${team.sprt}/${team.slug}/teams/${team.id}/schedule`);
                 const data = await res.json();
                 
                 // Get games occurring from now until 14 days out
