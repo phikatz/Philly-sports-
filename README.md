@@ -1,5 +1,4 @@
-# Philly-sports
-Schedule for the Next Week
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -146,7 +145,13 @@ Schedule for the Next Week
   .game-date .day { font-size: 1rem; color: var(--text); display: block; }
 
   .game-matchup { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; }
-  .game-meta { font-size: 0.72rem; color: var(--muted); display: flex; gap: 0.5rem; }
+  .game-meta { font-size: 0.72rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; }
+  .game-meta div { display: flex; gap: 8px; }
+
+  .odds-badge {
+    color: var(--gold);
+    font-weight: 600;
+  }
 
   .location-badge { font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; text-transform: uppercase; }
   .home { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
@@ -199,7 +204,6 @@ async function fetchSchedules() {
                 const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${team.sprt}/${team.slug}/teams/${team.id}/schedule`);
                 const data = await res.json();
                 
-                // Get games occurring from now until 7 days out
                 const now = new Date();
                 const oneWeek = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000));
 
@@ -214,6 +218,9 @@ async function fetchSchedules() {
                         const isHome = game.competitors.find(c => c.id === team.id).homeAway === 'home';
                         const dateObj = new Date(e.date);
                         
+                        // Extracting Odds/Line
+                        const odds = game.odds?.[0]?.details || 'Off';
+
                         return {
                             day: dateObj.toLocaleDateString('en-US', {weekday: 'short'}),
                             date: dateObj.toLocaleDateString('en-US', {month: 'short', day: 'numeric'}),
@@ -221,7 +228,7 @@ async function fetchSchedules() {
                             matchup: isHome ? `vs ${opponent.team.abbreviation}` : `@ ${opponent.team.abbreviation}`,
                             location: isHome ? 'home' : 'away',
                             tv: game.broadcasts?.[0]?.names?.[0] || 'TBD',
-                            oppLogo: opponent.team.logo
+                            odds: odds
                         };
                     });
             } catch (err) {
@@ -252,8 +259,8 @@ function renderAll(teamData) {
                 <div class="game-info">
                     <div class="game-matchup">${g.matchup}</div>
                     <div class="game-meta">
-                        <span>🕐 ${g.time}</span>
-                        <span>📺 ${g.tv}</span>
+                        <div><span>🕐 ${g.time}</span> <span>📺 ${g.tv}</span></div>
+                        <div><span class="odds-badge">Line: ${g.odds}</span></div>
                     </div>
                 </div>
                 <div class="location-badge ${g.location}">${g.location}</div>
@@ -269,11 +276,11 @@ function renderAll(teamData) {
                 <div class="game-list">${gamesHtml}</div>
             </div>
         `;
-    }).join('') + `<div class="last-updated">Schedule data provided by ESPN Public API</div>`;
+    }).join('') + `<div class="last-updated">Schedule & Odds provided by ESPN Public API</div>`;
 }
 
-// Initial Load
 fetchSchedules();
 </script>
 </body>
 </html>
+
