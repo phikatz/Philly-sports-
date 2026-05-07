@@ -222,6 +222,7 @@ async function fetchSchedules() {
                             location: isHome ? 'home' : 'away',
                             tv: game.broadcasts?.[0]?.names?.[0] || 'TBD',
                             oppLogo: opponent.team.logo
+                            Event_ID: event.id
                         };
                     });
             } catch (err) {
