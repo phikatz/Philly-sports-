@@ -219,8 +219,8 @@ async function fetchSchedules() {
                         const dateObj = new Date(e.date);
                         
                         // Extracting Odds/Line
-                        //const odds = game.odds?.[0]?.details || 'Off';
-                        const eventID = game.event.id
+                        const odds = game.odds?.[0]?.details || 'Off';
+                        //const eventID = game.event.id
 
                         return {
                             day: dateObj.toLocaleDateString('en-US', {weekday: 'short'}),
@@ -229,8 +229,8 @@ async function fetchSchedules() {
                             matchup: isHome ? `vs ${opponent.team.abbreviation}` : `@ ${opponent.team.abbreviation}`,
                             location: isHome ? 'home' : 'away',
                             tv: game.broadcasts?.[0]?.names?.[0] || 'TBD',
-                            //odds: odds
-                            eventID: eventID
+                            odds: odds
+                            //eventID: eventID
                         };
                     });
             } catch (err) {
