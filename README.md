@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+Schedule & Odds for the Next Week
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
